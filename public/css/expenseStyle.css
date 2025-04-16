@@ -1,0 +1,153 @@
+/* Global Styles */
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #121212; /* Dark background */
+    color: #e0e0e0; /* Light text */
+    margin: 0;
+    padding: 20px;
+    text-align: center;
+}
+
+/* Headings */
+h1, h2 {
+    color: #f5a623; /* Accent color */
+}
+
+/* Form Styling */
+#expenseForm {
+    background-color: #1e1e1e;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(255, 255, 255, 0.1);
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+#expenseForm input, #expenseForm select, #expenseForm button {
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+#expenseForm input, #expenseForm select {
+    background-color: #333;
+    color: white;
+}
+
+#expenseForm button {
+    background-color: #f5a623;
+    color: black;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+#expenseForm button:hover {
+    background-color: #ffbd45;
+}
+
+/* Tables */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    background-color: #1e1e1e;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+th, td {
+    padding: 12px;
+    border-bottom: 1px solid #333;
+    text-align: left;
+}
+
+th {
+    background-color: #333;
+    color: #f5a623;
+}
+
+td {
+    color: white;
+}
+
+/* Buttons */
+button {
+    background-color: #333;
+    color: #f5a623;
+    border: none;
+    padding: 8px 12px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+button:hover {
+    background-color: #444;
+}
+
+/* Delete Button */
+.delete-btn {
+    background-color: #ff4d4d;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.delete-btn:hover {
+    background-color: #ff3333;
+}
+
+/* Leaderboard & Membership Buttons */
+#leaderboardBtn, #buyMembershipBtn {
+    background-color: #f5a623;
+    color: black;
+    font-weight: bold;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+#leaderboardBtn:hover, #buyMembershipBtn:hover {
+    background-color: #ffbd45;
+}
+
+/* Pagination */
+#pagination, #daily-pagination, #weekly-pagination, #monthly-pagination {
+    margin-top: 15px;
+}
+
+#pagination button, 
+#daily-pagination button, 
+#weekly-pagination button, 
+#monthly-pagination button {
+    background-color: #444;
+    color: white;
+    margin: 2px;
+}
+
+#pagination button:hover, 
+#daily-pagination button:hover, 
+#weekly-pagination button:hover, 
+#monthly-pagination button:hover {
+    background-color: #666;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    table {
+        font-size: 14px;
+    }
+
+    th, td {
+        padding: 8px;
+    }
+
+    #expenseForm {
+        flex-direction: column;
+    }
+}

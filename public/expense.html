@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Expense Tracker</title>
+    <link rel="stylesheet" href="./css/expenseStyle.css">
+</head>
+<body>
+    <h1>Expense Tracker</h1>
+
+    <div id="membershipContainer">
+        <button id="buyMembershipBtn" style="display: none;">💎 Buy Premium Membership</button>
+        <p id="premiumText" style="display: none;">✨ You are a Premium Member</p>
+    </div>
+
+    <button id="leaderboardBtn" onclick="toggleLeaderboard()" style="display:none;">Show Leaderboard</button>
+
+    <div id="leaderboardContainer" style="display: none;">
+        <h2>Leaderboard</h2>
+        <table border="1">
+            <thead>
+                <tr>
+                    <th>Rank</th>
+                    <th>Name</th>
+                    <th>Total Expenses</th>
+                </tr>
+            </thead>
+            <tbody id="leaderboard"></tbody>
+        </table>
+    </div>
+
+    <h2>Add Expense</h2>
+    <form id="expenseForm">
+        <input type="number" id="amount" placeholder="Amount" required>
+        <input type="text" id="description" placeholder="Description" required>
+        <select id="category">
+            <option value="food">Food</option>
+            <option value="fuel">Fuel</option>
+            <option value="travel">Travel</option>
+            <option value="others">Others</option>
+        </select>
+        <button type="submit">Add Expense</button>
+    </form>
+
+    <h2>Expense List</h2>
+    <table id="expenseTable" border="1">
+        <thead>
+            <tr>
+                <th>Date</th>
+                <th>Time</th>
+                <th>Description</th>
+                <th>Category</th>
+                <th>Amount</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody id="expense-list"></tbody>
+    </table>
+    <div id="pagination"></div>
+
+    <h2>Daily Expenses</h2>
+    <table id="dailyExpenseTable" border="1">
+        <thead>
+            <tr>
+                <th>Date</th>
+                <th>Time</th>
+                <th>Description</th>
+                <th>Category</th>
+                <th>Amount</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody id="daily-expense-list"></tbody>
+    </table>
+    <div id="daily-pagination"></div>
+
+    <h2>Weekly Expenses</h2>
+    <table id="weeklyExpenseTable" border="1">
+        <thead>
+            <tr>
+                <th>Date</th>
+                <th>Time</th>
+                <th>Description</th>
+                <th>Category</th>
+                <th>Amount</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody id="weekly-expense-list"></tbody>
+    </table>
+    <div id="weekly-pagination"></div>
+
+    <h2>Monthly Expenses</h2>
+    <table id="monthlyExpenseTable" border="1">
+        <thead>
+            <tr>
+                <th>Date</th>
+                <th>Time</th>
+                <th>Description</th>
+                <th>Category</th>
+                <th>Amount</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody id="monthly-expense-list"></tbody>
+    </table>
+    <div id="monthly-pagination"></div>
+
+    <script src="https://checkout.razorpay.com/v1/checkout.js" async></script>
+    <script src="./js/expense.js"></script>
+</body>
+</html>

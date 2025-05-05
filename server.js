@@ -5,41 +5,34 @@ const expenseRoutes = require('./routes/expenseRoutes');
 const purchaseRoutes = require("./routes/purchaseRoutes");
 const path = require('path');
 require('dotenv').config();
-const compression = require('compression');
+// const compression = require('compression'); // Removed for local
 const helmet = require('helmet');
 
 const app = express();
 
 app.get('/health', (req, res) => {
     res.status(200).send('OK');
-  });
-
-// Helmet with CSP
-app.use(helmet({
-    contentSecurityPolicy: {
-        directives: {
-            defaultSrc: ["'self'"],
-            scriptSrc: ["'self'", "https://checkout.razorpay.com"],
-            frameSrc: ["'self'", "https://api.razorpay.com"],
-            styleSrc: ["'self'", "'unsafe-inline'"],
-            imgSrc: ["'self'"],
-            connectSrc: ["'self'", "https://*.herokuapp.com", "https://api.razorpay.com"],
-            objectSrc: ["'none'"],
-            upgradeInsecureRequests: []
-        }
-    }
-}));
-
-// HTTPS redirect for production
-app.use((req, res, next) => {
-    if (process.env.NODE_ENV === 'production' && req.header('x-forwarded-proto') !== 'https') {
-        res.redirect(`https://${req.header('host')}${req.url}`);
-    } else {
-        next();
-    }
 });
 
-app.use(compression());
+// Simplified Helmet (optional, can keep basic security)
+app.use(helmet()); // Removed strict CSP for simplicity
+// If you want to keep CSP but make it less strict, use:
+// app.use(helmet({
+//     contentSecurityPolicy: {
+//         directives: {
+//             defaultSrc: ["'self'"],
+//             scriptSrc: ["'self'", "https://checkout.razorpay.com"],
+//             frameSrc: ["'self'", "https://api.razorpay.com"],
+//             styleSrc: ["'self'", "'unsafe-inline'"],
+//             imgSrc: ["'self'"],
+//             connectSrc: ["'self'", "https://api.razorpay.com"],
+//             objectSrc: ["'none'"],
+//         }
+//     }
+// }));
+
+// Removed compression
+// app.use(compression());
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -49,7 +42,7 @@ app.use(session({
     resave: false,
     saveUninitialized: true,
     cookie: {
-        secure: process.env.NODE_ENV === 'production',
+        secure: false, // Changed to false for local development (no HTTPS)
         httpOnly: true
     }
 }));

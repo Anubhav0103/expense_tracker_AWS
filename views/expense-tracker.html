@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Expense Tracker</title>
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+    <link rel="stylesheet" href="./css/style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Expense Tracker</h1>
+        
+        <div class="premium-section">
+            <div>
+                <h2>Premium Status: <span id="premium-status">Not Premium</span></h2>
+                <button id="premium-btn" style="display: none;">Buy Premium</button>
+            </div>
+            <button id="leaderboard-btn" style="display: none;">Show Leaderboard</button>
+        </div>
+
+        <form id="expense-form" class="form-container">
+            <h2>Add Expense</h2>
+            <input type="number" id="amount" placeholder="Amount" required>
+            <input type="text" id="description" placeholder="Description" required>
+            <select id="category" required>
+                <option value="">Select Category</option>
+                <option value="Fuel">Fuel</option>
+                <option value="Food">Food</option>
+                <option value="Travel">Travel</option>
+                <option value="Others">Others</option>
+            </select>
+            <button type="submit">Add Expense</button>
+        </form>
+
+        <!-- All Expenses -->
+        <div class="expense-section">
+            <h2>All Expenses</h2>
+            <table id="expense-table">
+                <thead>
+                    <tr>
+                        <th>Amount</th>
+                        <th>Description</th>
+                        <th>Category</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+
+        <!-- Daily Expenses -->
+        <div class="time-based-tables">
+            <div class="time-table">
+                <h3>Daily Expenses</h3>
+                <table id="daily-table">
+                    <thead>
+                        <tr>
+                            <th>Amount</th>
+                            <th>Description</th>
+                            <th>Category</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+                <p>Total: ₹<span id="daily-total">0</span></p>
+                <div class="pagination">
+                    <button class="pagination-button" id="daily-prev-page" disabled>Previous</button>
+                    <div id="daily-page-numbers" class="page-numbers"></div>
+                    <button class="pagination-button" id="daily-next-page">Next</button>
+                </div>
+            </div>
+
+            <!-- Weekly Expenses -->
+            <div class="time-table">
+                <h3>Weekly Expenses</h3>
+                <table id="weekly-table">
+                    <thead>
+                        <tr>
+                            <th>Amount</th>
+                            <th>Description</th>
+                            <th>Category</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+                <p>Total: ₹<span id="weekly-total">0</span></p>
+                <div class="pagination">
+                    <button class="pagination-button" id="weekly-prev-page" disabled>Previous</button>
+                    <div id="weekly-page-numbers" class="page-numbers"></div>
+                    <button class="pagination-button" id="weekly-next-page">Next</button>
+                </div>
+            </div>
+
+            <!-- Monthly Expenses -->
+            <div class="time-table">
+                <h3>Monthly Expenses</h3>
+                <table id="monthly-table">
+                    <thead>
+                        <tr>
+                            <th>Amount</th>
+                            <th>Description</th>
+                            <th>Category</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+                <p>Total: ₹<span id="monthly-total">0</span></p>
+                <div class="pagination">
+                    <button class="pagination-button" id="monthly-prev-page" disabled>Previous</button>
+                    <div id="monthly-page-numbers" class="page-numbers"></div>
+                    <button class="pagination-button" id="monthly-next-page">Next</button>
+                </div>
+            </div>
+
+            <!-- Yearly Expenses -->
+            <div class="time-table">
+                <h3>Yearly Expenses</h3>
+                <table id="yearly-table">
+                    <thead>
+                        <tr>
+                            <th>Amount</th>
+                            <th>Description</th>
+                            <th>Category</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+                <p>Total: ₹<span id="yearly-total">0</span></p>
+                <div class="pagination">
+                    <button class="pagination-button" id="yearly-prev-page" disabled>Previous</button>
+                    <div id="yearly-page-numbers" class="page-numbers"></div>
+                    <button class="pagination-button" id="yearly-next-page">Next</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Edit Expense Modal -->
+    <div id="edit-modal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Edit Expense</h2>
+            <form id="edit-form">
+                <input type="number" id="edit-amount" placeholder="Amount" required>
+                <input type="text" id="edit-description" placeholder="Description" required>
+                <select id="edit-category" required>
+                    <option value="">Select Category</option>
+                    <option value="Fuel">Fuel</option>
+                    <option value="Food">Food</option>
+                    <option value="Travel">Travel</option>
+                    <option value="Others">Others</option>
+                </select>
+                <button type="submit">Update Expense</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="./js/expense.js"></script>
+</body>
+</html>

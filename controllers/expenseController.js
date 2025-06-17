@@ -132,18 +132,15 @@ const getYearlyExpenses = (req, res) => {
 
 
 const updateExpense = (req, res) => {
-  const { id } = req.params;
-  const { amount, description, category } = req.body;
-
-
+  const { id, amount, description, category } = req.body;
+  
   db.beginTransaction(err => {
     if (err) {
       console.error('Error starting transaction:', err);
       return res.status(500).json({ message: 'Error updating expense' });
     }
 
-
-    const getOldExpenseQuery = 'SELECT amount, email FROM user_expense WHERE id = ?';
+    const getOldExpenseQuery = 'SELECT email FROM user_expense WHERE id = ?';
     db.query(getOldExpenseQuery, [id], (err, results) => {
       if (err) {
         return db.rollback(() => {
@@ -158,11 +155,10 @@ const updateExpense = (req, res) => {
         });
       }
 
-      const oldAmount = results[0].amount;
       const email = results[0].email;
 
-      
-      const updateExpenseQuery = 'UPDATE user_expense SET amount = ?, description = ?, category = ? WHERE id = ?';
+
+      const updateExpenseQuery = 'UPDATE user_expense SET amount = ?, description = ?, category = ?, modified_at = CURRENT_TIMESTAMP WHERE id = ?';
       db.query(updateExpenseQuery, [amount, description, category, id], (err, updateResult) => {
         if (err) {
           return db.rollback(() => {
@@ -186,7 +182,7 @@ const updateExpense = (req, res) => {
             if (err) {
               return db.rollback(() => {
                 console.error('Error committing transaction:', err);
-                res.status(500).json({ message: 'Error completing transaction' });
+                res.status(500).json({ message: 'Error updating expense' });
               });
             }
             res.json({ message: 'Expense updated successfully' });

@@ -84,6 +84,7 @@ function paginateExpenses(expenses) {
       <td>₹${Number(expense.amount).toFixed(2)}</td>
       <td>${expense.description}</td>
       <td>${expense.category}</td>
+      <td>${expense.created_at.split('T')[0]}</td>
       <td>
         <button onclick="editExpense(${expense.id})">Edit</button>
         <button onclick="deleteExpense(${expense.id})">Delete</button>
@@ -92,7 +93,6 @@ function paginateExpenses(expenses) {
     tbody.appendChild(tr);
   });
 
-  // Update total for all expenses
   const total = expenses.reduce((sum, expense) => sum + Number(expense.amount), 0);
   document.getElementById('total-expenses').textContent = total.toFixed(2);
 }
@@ -113,6 +113,7 @@ function updateTimeBasedTable(type) {
       <td>₹${Number(expense.amount).toFixed(2)}</td>
       <td>${expense.description}</td>
       <td>${expense.category}</td>
+      <td>${expense.created_at.split('T')[0]}</td>
       <td>
         <button onclick="editExpense(${expense.id})">Edit</button>
         <button onclick="deleteExpense(${expense.id})">Delete</button>
@@ -135,7 +136,6 @@ function changeTimeBasedPage(type, newPage) {
     timeBasedExpenses[type].currentPage = newPage;
     updateTimeBasedTable(type);
     
-    // Update pagination buttons
     document.getElementById(`${type}-prev-page`).disabled = newPage === 1;
     document.getElementById(`${type}-next-page`).disabled = newPage === maxPage;
   }

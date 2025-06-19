@@ -86,15 +86,30 @@ function paginateExpenses(expenses) {
       <td>${expense.category}</td>
       <td>${expense.created_at.split('T')[0]}</td>
       <td>
-        <button onclick="editExpense(${expense.id})">Edit</button>
-        <button onclick="deleteExpense(${expense.id})">Delete</button>
+        <button class="edit-btn" data-id="${expense.id}">Edit</button>
+        <button class="delete-btn" data-id="${expense.id}">Delete</button>
       </td>
     `;
     tbody.appendChild(tr);
   });
 
+  // Attach event listeners using event delegation
+  tbody.querySelectorAll('.edit-btn').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      const id = Number(btn.dataset.id);
+      editExpense(id);
+    });
+  });
+  tbody.querySelectorAll('.delete-btn').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      const id = Number(btn.dataset.id);
+      deleteExpense(id);
+    });
+  });
+
   const total = expenses.reduce((sum, expense) => sum + Number(expense.amount), 0);
-  document.getElementById('total-expenses').textContent = total.toFixed(2);
+  const totalElem = document.getElementById('total-expenses');
+  if (totalElem) totalElem.textContent = total.toFixed(2);
 }
 
 function updateTimeBasedTable(type) {
@@ -115,11 +130,25 @@ function updateTimeBasedTable(type) {
       <td>${expense.category}</td>
       <td>${expense.created_at.split('T')[0]}</td>
       <td>
-        <button onclick="editExpense(${expense.id})">Edit</button>
-        <button onclick="deleteExpense(${expense.id})">Delete</button>
+        <button class="edit-btn" data-id="${expense.id}">Edit</button>
+        <button class="delete-btn" data-id="${expense.id}">Delete</button>
       </td>
     `;
     tbody.appendChild(tr);
+  });
+
+  // Attach event listeners using event delegation
+  tbody.querySelectorAll('.edit-btn').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      const id = Number(btn.dataset.id);
+      editExpense(id);
+    });
+  });
+  tbody.querySelectorAll('.delete-btn').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      const id = Number(btn.dataset.id);
+      deleteExpense(id);
+    });
   });
 }
 

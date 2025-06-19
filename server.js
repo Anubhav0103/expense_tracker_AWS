@@ -1,11 +1,37 @@
 const express = require('express');
 const path = require('path');
 const dotenv = require('dotenv');
+// const helmet = require('helmet');
+// const cors = require('cors');
 
 dotenv.config();
 
 const app = express();
 const port = process.env.PORT || 5000;
+
+// Security middleware
+// app.use(helmet({
+//   contentSecurityPolicy: {
+//     directives: {
+//       defaultSrc: ["'self'"],
+//       scriptSrc: ["'self'", "'unsafe-inline'", "https://checkout.razorpay.com", "https://cdn.razorpay.com"],
+//       styleSrc: ["'self'", "'unsafe-inline'"],
+//       imgSrc: ["'self'", "data:", "https:"],
+//       connectSrc: ["'self'", "https://lumberjack.razorpay.com"],
+//       fontSrc: ["'self'"],
+//       objectSrc: ["'none'"],
+//       mediaSrc: ["'self'"],
+//       frameSrc: ["'self'", "https://checkout.razorpay.com", "https://api.razorpay.com"]
+//     }
+//   }
+// }));
+
+// // CORS configuration
+// app.use(cors({
+//   origin: process.env.FRONTEND_URL || '*',
+//   methods: ['GET', 'POST', 'PUT', 'DELETE'],
+//   allowedHeaders: ['Content-Type', 'Authorization']
+// }));
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -54,6 +80,24 @@ app.get('/reset-password/:token', (req, res) => {
 
 app.get('/leaderboard', (req, res) => {
   res.sendFile(path.join(__dirname, 'views', 'leaderboard.html'));
+});
+
+// Error handling middleware
+app.use((err, req, res, next) => {
+  console.error(err.stack);
+  res.status(500).json({
+    success: false,
+    message: 'Something went wrong!',
+    error: process.env.NODE_ENV === 'development' ? err.message : undefined
+  });
+});
+
+// 404 handler
+app.use((req, res) => {
+  res.status(404).json({
+    success: false,
+    message: 'Route not found'
+  });
 });
 
 app.listen(port, () => {

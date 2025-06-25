@@ -11,11 +11,11 @@ document.getElementById('reset-form').addEventListener('submit', async (e) => {
   }
 
 
-  console.log('Current URL:', window.location.href);
-  console.log('URL pathname:', window.location.pathname);
+  // console.log('Current URL:', window.location.href);
+  // console.log('URL pathname:', window.location.pathname);
   
   const token = window.location.pathname.split('/').pop();
-  console.log('Extracted token:', token);
+  // console.log('Extracted token:', token);
   
   if (!token) {
     messageDiv.textContent = 'Invalid reset token';
@@ -35,7 +35,7 @@ document.getElementById('reset-form').addEventListener('submit', async (e) => {
     console.log('Reset response:', data);
 
     messageDiv.textContent = data.message;
-    messageDiv.className = data.success ? 'success' : 'error';
+    // messageDiv.className = data.success ? 'success' : 'error';
 
     if (data.success) {
       messageDiv.textContent = 'Password reset successful! Redirecting to login...';

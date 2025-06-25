@@ -11,7 +11,7 @@ let timeBasedExpenses = {
 document.addEventListener('DOMContentLoaded', () => {
   const email = sessionStorage.getItem('email');
   if (!email) {
-    window.location.href = '/login.html';
+    window.location.href = '/login';
     return;
   }
 
@@ -36,13 +36,38 @@ document.addEventListener('DOMContentLoaded', () => {
   document.querySelector('.close').addEventListener('click', () => {
     document.getElementById('edit-modal').style.display = 'none';
   });
+
+  const downloadBtn = document.getElementById('download-expense-btn');
+  if (downloadBtn) {
+    downloadBtn.addEventListener('click', async () => {
+      try {
+        const email = sessionStorage.getItem('email');
+        const response = await fetch(`/api/expense/download?email=${encodeURIComponent(email)}`);
+        if (!response.ok) {
+          alert('Failed to download expense file.');
+          return;
+        }
+        const blob = await response.blob();
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `expenses-${email}.txt`;
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
+        window.URL.revokeObjectURL(url);
+      } catch (err) {
+        alert('Error downloading expense file.');
+      }
+    });
+  }
 });
 
 async function loadExpenses() {
   try {
     const email = sessionStorage.getItem('email');
     if (!email) {
-      console.error('No email found in session storage');
+      // console.error('No email found in session storage');
       return;
     }
     const response = await fetch(`/api/expense/get?email=${email}`);
@@ -266,7 +291,7 @@ async function checkPremiumStatus() {
   try {
     const email = sessionStorage.getItem('email');
     if (!email) {
-      console.error('No email found in session storage');
+      // console.error('No email found in session storage');
       return;
     }
     const response = await fetch(`/api/user/premium-status?email=${email}`);
@@ -282,7 +307,7 @@ async function checkPremiumStatus() {
       document.getElementById('leaderboard-btn').style.display = 'none';
     }
   } catch (error) {
-    console.error('Error checking premium status:', error);
+    // console.error('Error checking premium status:', error);
   }
 }
 
@@ -322,7 +347,7 @@ async function buyPremium() {
             alert('Failed to update premium status. Please contact support.');
           }
         } catch (error) {
-          console.error('Error updating premium status:', error);
+          // console.error('Error updating premium status:', error);
           alert('Error updating premium status. Please contact support.');
         }
       },
@@ -337,7 +362,7 @@ async function buyPremium() {
     const rzp = new Razorpay(options);
     rzp.open();
   } catch (error) {
-    console.error('Error creating order:', error);
+    // console.error('Error creating order:', error);
     alert('Error creating order. Please try again.');
   }
 }

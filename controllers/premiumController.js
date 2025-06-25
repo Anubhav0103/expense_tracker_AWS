@@ -25,7 +25,7 @@ const createOrder = async (req, res) => {
       keyId: process.env.RAZORPAY_KEY_ID
     });
   } catch (error) {
-    console.error('Error creating order:', error);
+    // console.error('Error creating order:', error);
     res.status(500).json({ message: 'Error creating order' });
   }
 };
@@ -37,7 +37,7 @@ const updatePremiumStatus = async (req, res) => {
     const query = 'UPDATE users SET isPremium = 1 WHERE email = ?';
     db.query(query, [email], (err, result) => {
       if (err) {
-        console.error('Error updating premium status:', err);
+        // console.error('Error updating premium status:', err);
         return res.status(500).json({ message: 'Error updating premium status' });
       }
 
@@ -48,7 +48,7 @@ const updatePremiumStatus = async (req, res) => {
       res.json({ message: 'Premium status updated successfully' });
     });
   } catch (error) {
-    console.error('Error updating premium status:', error);
+    // console.error('Error updating premium status:', error);
     res.status(500).json({ message: 'Error updating premium status' });
   }
 };
@@ -63,7 +63,7 @@ const getPremiumStatus = (req, res) => {
   const query = 'SELECT isPremium FROM users WHERE email = ?';
   db.query(query, [email], (err, results) => {
     if (err) {
-      console.error('Get premium status error:', err.message);
+      // console.error('Get premium status error:', err.message);
       return res.status(500).json({ message: 'Server error' });
     }
     if (results.length === 0) {

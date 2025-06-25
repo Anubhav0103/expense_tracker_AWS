@@ -14,7 +14,6 @@ document.getElementById('forgot-password-form').addEventListener('submit', async
 
     const data = await response.json();
     messageDiv.textContent = data.message;
-    messageDiv.className = data.success ? 'success' : 'error';
   } catch (error) {
     messageDiv.textContent = 'An error occurred. Please try again.';
     messageDiv.className = 'error';

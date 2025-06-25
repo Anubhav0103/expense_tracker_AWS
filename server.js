@@ -1,6 +1,8 @@
 const express = require('express');
 const path = require('path');
+const fs = require('fs');
 const dotenv = require('dotenv');
+const morgan = require('morgan');
 // const helmet = require('helmet');
 // const cors = require('cors');
 
@@ -8,6 +10,20 @@ dotenv.config();
 
 const app = express();
 const port = process.env.PORT || 5000;
+
+// Create logs directory if it doesn't exist
+const logsDir = path.join(__dirname, 'logs');
+if (!fs.existsSync(logsDir)) {
+  fs.mkdirSync(logsDir);
+}
+
+// Create a write stream for logging
+const accessLogStream = fs.createWriteStream(
+  path.join(__dirname, 'logs', 'access.log'),
+  { flags: 'a' }
+);
+
+app.use(morgan('combined', { stream: accessLogStream })); // Log all requests to file
 
 // Security middleware
 // app.use(helmet({
